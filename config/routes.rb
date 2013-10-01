@@ -1,5 +1,9 @@
 BugsMetric::Application.routes.draw do
   resources :graphs
+
+  controller :graphs do
+    post "show_graph" => :show_graph
+  end
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -57,5 +61,5 @@ BugsMetric::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
 
-  root to: 'graphs#new'
+  root to: 'graphs#index'
 end

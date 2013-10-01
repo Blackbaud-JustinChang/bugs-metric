@@ -14,7 +14,7 @@ Display Current Graphs <br />
 Product: <%= select_tag(:product_id, options_for_select(products)) %> <br>
 Start Date <%= date_select(:start_date, :start_year => 1940, discard_day:true) %> <br>
 End Date <%= date_select(:end_date, :end_year => 1940, discard_day:true) %><br>
-<%= button_to "Graph", method="post", :action => "graph"%>
+<%= button_to "Graph", {:controller => 'graphs', :graphs => @graphs, :action => "show_graph"}, :method => "post"%>
 
 
 
