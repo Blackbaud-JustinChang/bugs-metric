@@ -1,20 +1,25 @@
 Enter New Graph information
 <hr>
-<% products = [["Luminate Online", "1"], ["Luminate CRM", "2"], ["BBCRM Integration", "3"]] %>
+
 <%= form_for @graph do |g| -%>
     Graph Name: <%= g.text_field :name %><br />
     Search: <%= g.text_field :search %><br />
-    Product Name: <%= g.select(:product, products)  %><br />
-    Start Date: <%= g.date_select(:start_date, :start_year => 1940, discard_day:true) %><br />
-    End Date: <%= g.date_select(:end_date, :start_year => 1940, discard_day:true) %><br />
     <%= g.submit("Add graph") %>
 <% end -%>
 <hr>
 Display Current Graphs <br />
 <% if !@graphs.blank? %>
     <% for graph in @graphs %>
-        <%= graph.id %> <%= graph.name %> <%= graph.search %> <%= graph.product %> <%= graph.start_date %> <%= graph.end_date %> <br />
+        <%= graph.id %> <%= graph.name %> <%= graph.search %> <br />
     <% end %>
-<% else %>
 <% end %>
+<hr>
+<% products = [["Luminate Online", "1"], ["Luminate CRM", "2"], ["BBCRM Integration", "3"]] %>
+Product: <%= select_tag(:product_id, options_for_select(products)) %> <br>
+Start Date <%= date_select(:start_date, :start_year => 1940, discard_day:true) %> <br>
+End Date <%= date_select(:end_date, :end_year => 1940, discard_day:true) %><br>
+<%= button_to "Graph", method="post", :action => "graph"%>
+
+
+
 

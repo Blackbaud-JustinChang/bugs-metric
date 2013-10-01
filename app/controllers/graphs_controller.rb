@@ -2,7 +2,7 @@ class GraphsController < ApplicationController
 
   def new
     @graph = Graph.new
-    @graphs = Graph.find(:all)
+    @graphs = Graph.all
   end
 
   def create
@@ -13,5 +13,10 @@ class GraphsController < ApplicationController
       #show error message
       redirect_to new_graph_path
     end
+  end
+
+  def graph
+
+
   end
 end
