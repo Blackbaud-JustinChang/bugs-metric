@@ -16,8 +16,8 @@ ActiveRecord::Schema.define(:version => 20131001153346) do
   create_table "graphs", :force => true do |t|
     t.string   "name"
     t.string   "search"
-    t.string   "start_date"
-    t.string   "end_date"
+    t.date     "start_date"
+    t.date     "end_date"
     t.string   "product"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false

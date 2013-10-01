@@ -1,11 +1,12 @@
 Enter New Graph information
 <hr>
+<% products = [["Luminate Online", "1"], ["Luminate CRM", "2"], ["BBCRM Integration", "3"]] %>
 <%= form_for @graph do |g| -%>
     Graph Name: <%= g.text_field :name %><br />
     Search: <%= g.text_field :search %><br />
-    Product Name: <%= g.select(:product, [['Testing', "1"]])  %><br />
-    Start Date: <%= g.text_field :start_date %><br />
-    End Date: <%= g.text_field :end_date %><br />
+    Product Name: <%= g.select(:product, products)  %><br />
+    Start Date: <%= g.date_select(:start_date, :start_year => 1940, discard_day:true) %><br />
+    End Date: <%= g.date_select(:end_date, :start_year => 1940, discard_day:true) %><br />
     <%= g.submit("Add graph") %>
 <% end -%>
 <hr>
