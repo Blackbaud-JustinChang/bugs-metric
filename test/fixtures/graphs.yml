@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  search: MyString
+  start_date: MyString
+  end_date: MyString
+  product: MyString
+
+two:
+  name: MyString
+  search: MyString
+  start_date: MyString
+  end_date: MyString
+  product: MyString

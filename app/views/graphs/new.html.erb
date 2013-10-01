@@ -1,0 +1,19 @@
+Enter New Graph information
+<hr>
+<%= form_for @graph do |g| -%>
+    Graph Name: <%= g.text_field :name %><br />
+    Search: <%= g.text_field :search %><br />
+    Product Name: <%= g.select(:product, [['Testing', "1"]])  %><br />
+    Start Date: <%= g.text_field :start_date %><br />
+    End Date: <%= g.text_field :end_date %><br />
+    <%= g.submit("Add graph") %>
+<% end -%>
+<hr>
+Display Current Graphs <br />
+<% if !@graphs.blank? %>
+    <% for graph in @graphs %>
+        <%= graph.id %> <%= graph.name %> <%= graph.search %> <%= graph.product %> <%= graph.start_date %> <%= graph.end_date %> <br />
+    <% end %>
+<% else %>
+<% end %>
+
