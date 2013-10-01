@@ -16,8 +16,7 @@ class GraphsController < ApplicationController
   end
 
   def show_graph
-    puts "hello"
-    puts "hello"
+    Graph.all #get all graphs
     redirect_to root_path
   end
 end
