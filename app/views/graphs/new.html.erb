@@ -8,11 +8,7 @@ Enter New Graph information
 <% end -%>
 <hr>
 Display Current Graphs <br />
-<% if !@graphs.blank? %>
-    <% for graph in @graphs %>
-        <%= graph.id %> <%= graph.name %> <%= graph.search %> <br />
-    <% end %>
-<% end %>
+<%= render @graphs %>
 <hr>
 <% products = [["Luminate Online", "1"], ["Luminate CRM", "2"], ["BBCRM Integration", "3"]] %>
 Product: <%= select_tag(:product_id, options_for_select(products)) %> <br>
