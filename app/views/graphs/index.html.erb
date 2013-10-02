@@ -16,7 +16,7 @@ Display Current Graphs <br />
     Product: <%= select_tag(:product, options_for_select(products)) %> <br>
     Start Date <%= date_select(:start_date, "start", :discard_day => true) %> <br>
     End Date <%= date_select(:end_date, "end", :discard_day => true) %><br>
-    <%= submit_tag %>
+    <%= submit_tag("Run Graph") %>
 <% end %>
 <% if @graph_query %>
     Start Date: <%= @graph_query[:start_date] %><br>
