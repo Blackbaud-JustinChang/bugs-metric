@@ -1,3 +1,4 @@
+require_relative '../helpers/bugzilla_helper'
 class GraphsController < ApplicationController
 
   def index
@@ -29,7 +30,9 @@ class GraphsController < ApplicationController
 
   def show_graph params
     Graph.all #get all graphs
-    @graph_query = params
+    @graph_query = params if params.values.select{|x| x.nil?}.empty?
+    flash.now[:notice] = "Query has been submitted" if @graph_query
+    @bugzilla = BugzillaHelper.bug_info(61442)
   end
 
   def fix_date_param date
