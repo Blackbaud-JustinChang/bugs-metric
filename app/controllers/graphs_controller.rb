@@ -4,7 +4,7 @@ class GraphsController < ApplicationController
   def index
     @graph = Graph.new
     @graphs = Graph.all
-    graph_params = {:product_id => params[:product_id],
+    graph_params = {:product => params[:product],
                     :start_date => fix_date_param(params[:start_date]),
                     :end_date => fix_date_param(params[:end_date])}
     show_graph(graph_params)
@@ -29,15 +29,18 @@ class GraphsController < ApplicationController
   private
 
   def show_graph params
-    Graph.all #get all graphs
     @graph_query = params if params.values.select{|x| x.nil?}.empty?
-    @bugzilla_ids = []
+    @bugzilla_bugs = {}
+
     if @graph_query
-      flash.now[:notice] = "Query has been submitted"
-      bugzilla_url = "http://bugzilla.corp.convio.com/buglist.cgi?"
-      bug_status = "&bug_status=NEW"
-      date_string = "type0-1-0=lessthan&query_format=advanced&value0-1-0=#{@graph_query[:end_date]}&field0-1-0=creation_ts&field0-0-0=creation_ts&type0-0-0=greaterthan&value0-0-0=#{@graph_query[:start_date]}"
-      @bugzilla_ids = BugzillaHelper.bug_id_by_url(bugzilla_url + date_string+ bug_status)
+      Graph.all.each do |graph|
+        bugzilla_url = "http://bugzilla.corp.convio.com/buglist.cgi?"
+        search = "&short_desc=#{graph.search}&short_desc_type=substring"
+        bug_status = "&bug_status=NEW&bug_status=VERIFIED"
+        product = "&product=#{@graph_query[:product]}"
+        date_string = "&type0-1-0=lessthan&query_format=advanced&value0-1-0=#{@graph_query[:end_date]}&field0-1-0=creation_ts&field0-0-0=creation_ts&type0-0-0=greaterthan&value0-0-0=#{@graph_query[:start_date]}"
+        @bugzilla_bugs[graph.search] = BugzillaHelper.bug_id_by_url(bugzilla_url + search + date_string+ bug_status + product).size
+      end
     end
   end
 
