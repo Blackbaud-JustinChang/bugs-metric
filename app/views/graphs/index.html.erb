@@ -18,8 +18,7 @@ Display Current Graphs <br />
     End Date <%= date_select(:end_date, "end", :discard_day => true) %><br>
     <%= submit_tag %>
 <% end %>
-<%= @graph_query %>
-<%= @bugzilla %>
+Total Bugs: <%= @bugzilla_ids.size %>
 
 
 
