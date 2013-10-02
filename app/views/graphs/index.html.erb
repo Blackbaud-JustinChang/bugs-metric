@@ -11,10 +11,13 @@ Display Current Graphs <br />
 <%= render @graphs %>
 <hr>
 <% products = [["Luminate Online", "1"], ["Luminate CRM", "2"], ["BBCRM Integration", "3"]] %>
-Product: <%= select_tag(:product_id, options_for_select(products)) %> <br>
-Start Date <%= date_select(:start_date, :start_year => 1940, discard_day:true) %> <br>
-End Date <%= date_select(:end_date, :end_year => 1940, discard_day:true) %><br>
-<%= button_to "Graph", {:controller => 'graphs', :action => "show_graph"}, :method => "post"%>
+<%= form_tag "/" do %>
+    Product: <%= select_tag(:product_id, options_for_select(products)) %> <br>
+    Start Date <%= date_select(:start_date, "start", :discard_day => true) %> <br>
+    End Date <%= date_select(:end_date, "end", :discard_day => true) %><br>
+    <%= submit_tag %>
+<% end %>
+<%= @graph_query%>
 
 
 
