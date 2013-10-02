@@ -1,5 +1,9 @@
 BugsMetric::Application.routes.draw do
   resources :graphs
+
+  controller :graphs do
+    get "remove_graph" => :remove_graph
+  end
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

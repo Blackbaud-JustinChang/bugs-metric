@@ -19,6 +19,12 @@ class GraphsController < ApplicationController
     end
   end
 
+  def remove_graph
+    graph = Graph.find(params[:id])
+    graph.destroy
+    redirect_to root_path
+  end
+
   private
 
   def show_graph params
