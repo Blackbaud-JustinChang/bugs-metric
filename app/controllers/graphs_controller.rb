@@ -10,6 +10,12 @@ class GraphsController < ApplicationController
                     :end_date => fix_date_param(params[:end_date])}
     show_graph(graph_params)
 
+    respond_to do |format|
+      format.html
+      format.js
+      format.json { render json: @graph}
+    end
+
   end
 
   def create
@@ -25,7 +31,13 @@ class GraphsController < ApplicationController
   def remove_graph
     graph = Graph.find(params[:id])
     graph.destroy
-    redirect_to root_path
+    @graphs = Graph.all
+
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.js { render :template => 'graphs/remove_graph.js.erb', :layout => false}
+      format.json
+    end
   end
 
   private

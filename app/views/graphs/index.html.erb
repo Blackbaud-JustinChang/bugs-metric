@@ -8,7 +8,7 @@
 </div>
 <div id="createGraph">
   Enter New Graph information
-<%= form_for @graph do |g| -%>
+<%= form_for(@graph, remote:true) do |g| -%>
     Graph Name: <%= g.text_field :name %><br />
     Search: <%= g.text_field :search %><br />
     Search Summary <%= g.check_box :in_summary %><br />
