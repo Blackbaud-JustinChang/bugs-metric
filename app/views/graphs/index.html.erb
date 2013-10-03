@@ -26,9 +26,13 @@
 </div>
 <div id="graph">
 <% if @graph_query %>
-    <%= (high_chart('graph1', @complete_graph)) -%>
+    Total time to graph: <%= @total_time %><br>
+    <%= (high_chart('bar_graph', @bar_graph)) -%><br>
+    <%= (high_chart('line_graph', @line_graph)) -%>
 <% end %>
 </div>
+
+
 
 
 
