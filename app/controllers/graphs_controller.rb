@@ -1,6 +1,8 @@
 require_relative '../helpers/bugzilla_helper'
 class GraphsController < ApplicationController
 
+  BUGZILLA_URL = "http://bugzilla.corp.convio.com/buglist.cgi?"
+
   def index
     @graph = Graph.new
     @graphs = Graph.all
@@ -42,6 +44,10 @@ class GraphsController < ApplicationController
 
   private
 
+  def generate_search(search_params)
+    "&short_desc=#{search_params.gsub(' ', '%20').gsub(',', '%2C')}&short_desc_type=anywordssubstr"
+  end
+
   def show_graph params
     @graph_query = params if params.values.select { |x| x.nil? }.empty?
     @bugzilla_bugs = {}
@@ -49,19 +55,19 @@ class GraphsController < ApplicationController
     if @graph_query
       begin_time = Time.now
       Graph.all.each do |graph|
-        bugzilla_url = "http://bugzilla.corp.convio.com/buglist.cgi?"
-        search = "&short_desc=#{graph.search}&short_desc_type=substring"
+        bugzilla_url = BUGZILLA_URL
+        search = generate_search(graph.search)
         product = "&product=#{@graph_query[:product]}"
         date_param = date_string(@graph_query[:start_date], @graph_query[:end_date])
         bugzilla_bug_ids = BugzillaHelper.bug_id_by_url(bugzilla_url + search + date_param + product)
-        @bugzilla_bugs[graph.search] = bugzilla_bug_ids.size
+        @bugzilla_bugs[graph.name] = bugzilla_bug_ids.size
 
         # API way
-        @bugzilla_bugs_by_date[graph.search] = {}
+        @bugzilla_bugs_by_date[graph.name] = {}
         bug_ids = BugzillaHelper.bug_info(bugzilla_bug_ids)
         date = @graph_query[:start_date].clone
         while date != @graph_query[:end_date] and !bug_ids.empty?
-          @bugzilla_bugs_by_date[graph.search][date.to_s] = bug_ids.select { |x| x['creation_time'].to_date >= date and x['creation_time'].to_date < date.next_month }.size
+          @bugzilla_bugs_by_date[graph.name][date.to_s] = bug_ids.select { |x| x['creation_time'].to_date >= date and x['creation_time'].to_date < date.next_month }.size
           date = date.next_month
         end
 
