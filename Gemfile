@@ -7,6 +7,7 @@ gem 'rails'
 
 gem 'sqlite3'
 gem 'lazy_high_charts'
+gem 'bootstrap-sass'
 
 
 # Gems used only for assets and not required

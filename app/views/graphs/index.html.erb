@@ -1,17 +1,21 @@
 
 
-<div id="currentGraphs">
-  <h1>Current Graph</h1> <br />
-  <div id="currentGraphsBorder">
-    <%= render @graphs %>
-  </div>
+<div id="currentGraphs" class="container-fluid">
+  <h1>Current Graph</h1> <br/>
+  <ul id="currentGraphsBorder">
+    <% if !@graphs.empty? %>
+        <%= render @graphs %>
+    <% else %>
+        No graphs have been added
+    <% end %>
+  </ul>
 </div>
 <div id="createGraph">
-  Enter New Graph information
+  <h2>Enter New Graph information</h2>
 <%= form_for(@graph, remote:true) do |g| -%>
     Graph Name: <%= g.text_field :name %><br />
     Search: <%= g.text_field :search %><br />
-    Search Summary <%= g.check_box :in_summary %><br />
+    Search Summary <%= g.check_box :in_summary %><-- DOES NOT WORK<br />
     <%= g.submit("Add graph") %>
 <% end -%>
 </div>
