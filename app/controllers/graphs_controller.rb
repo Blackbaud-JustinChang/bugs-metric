@@ -45,7 +45,7 @@ class GraphsController < ApplicationController
   private
 
   def generate_search(search_params)
-    "&short_desc=#{search_params.gsub(' ', '%20').gsub(',', '%2C')}&short_desc_type=anywordssubstr"
+    "&short_desc=#{search_params.gsub(', ', ',').gsub(' ', '%20').gsub(',', '%2C')}&short_desc_type=anywordssubstr"
   end
 
   def show_graph params
