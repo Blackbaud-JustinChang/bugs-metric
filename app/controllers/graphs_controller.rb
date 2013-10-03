@@ -42,9 +42,6 @@ class GraphsController < ApplicationController
         @bugzilla_bugs[graph.search] = BugzillaHelper.bug_id_by_url(bugzilla_url + search + date_string+ bug_status + product).size
       end
       create_graph
-
-
-
     end
   end
 
@@ -56,7 +53,7 @@ class GraphsController < ApplicationController
 
   def create_graph
     @complete_graph = LazyHighCharts::HighChart.new('column') do |f|
-      f.series(:name=>'',:data=> @bugzilla_bugs.values)
+      f.series(:name=>'Total Bugs',:data=> @bugzilla_bugs.values)
       f.title({ :text=>"Total Bugs from #{@graph_query[:start_date]} to #{@graph_query[:end_date]}"})
       f.legend({:align => 'right',
                 :x => -100,

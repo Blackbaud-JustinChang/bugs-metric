@@ -1,26 +1,34 @@
-Enter New Graph information
-<hr>
 
+
+<div id="currentGraphs">
+  <h1>Current Graph</h1> <br />
+  <div id="currentGraphsBorder">
+    <%= render @graphs %>
+  </div>
+</div>
+<div id="createGraph">
+  Enter New Graph information
 <%= form_for @graph do |g| -%>
     Graph Name: <%= g.text_field :name %><br />
     Search: <%= g.text_field :search %><br />
     Search Summary <%= g.check_box :in_summary %><br />
     <%= g.submit("Add graph") %>
 <% end -%>
-<hr>
-Display Current Graphs <br />
-<%= render @graphs %>
-<hr>
+</div>
 <% products = [["Luminate Online", "Luminate%20Online"], ["Luminate CRM", "Luminate%20CRM"], ["BBCRM Integration", "BBCRM%20Integration"]] %>
+<div id="bugSearch">
 <%= form_tag "/" do %>
     Product: <%= select_tag(:product, options_for_select(products)) %> <br>
     Start Date <%= date_select(:start_date, "start", :discard_day => true) %> <br>
     End Date <%= date_select(:end_date, "end", :discard_day => true) %><br>
     <%= submit_tag("Run Graph") %>
 <% end %>
+</div>
+<div id="graph">
 <% if @graph_query %>
     <%= (high_chart('graph1', @complete_graph)) -%>
 <% end %>
+</div>
 
 
 

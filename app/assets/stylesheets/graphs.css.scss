@@ -1,3 +1,53 @@
 // Place all the styles related to the Graphs controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+#background {
+    background: #DDECFF;
+}
+
+
+#Main
+{
+  width: 65%;
+  margin: auto;
+  padding: 30px 10px 0px 10px;
+
+}
+
+#currentGraphs
+{
+  float: right;
+}
+
+#currentGraphs h1
+{
+  font-size: 20px;
+  font-style: bold;
+  margin-bottom: 0px;
+}
+
+#currentGraphs li
+{
+  list-style-type: none;
+}
+
+#currentGraphsBorder
+{
+  border-radius: 15px;
+  border-style: solid;
+  border-width: 2px;
+  padding: 10px 10px 10px 10px;
+}
+
+#bugSearch
+{
+  padding: 30px 0px 0px 0px;
+}
+
+
+#graph
+{
+  padding: 30px 0px 0px 0px;
+}
+
+

@@ -6,12 +6,15 @@
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
-<body>
-    <% flash.each do |name, msg| %>
-        <%= content_tag :div, msg, class: name %>
-    <% end %>
+<body id="background">
 
-<%= yield %>
+    <div id="Main">
+        <% flash.each do |name, msg| %>
+            <%= content_tag :div, msg, class: name %>
+        <% end %>
+
+        <%= yield %>
+    </div>
 
 </body>
 </html>
