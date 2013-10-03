@@ -16,7 +16,7 @@ module BugzillaHelper
     begin
       source = open(unescape_character(URI.escape(url))){ |f| f.read }
       source.scan(/a name=\"b(\d+?)\"/) { |m| bugs << $1 } #Capture all the bugs # through regular expression
-      return -1 if source.to_s =~ /Bugzilla_login/ && bugs.length == 0
+      #return -1 if source.to_s =~ /Bugzilla_login/ && bugs.length == 0
     end
     bugs
   end

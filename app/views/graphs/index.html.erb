@@ -19,13 +19,10 @@ Display Current Graphs <br />
     <%= submit_tag("Run Graph") %>
 <% end %>
 <% if @graph_query %>
-    Start Date: <%= @graph_query[:start_date] %><br>
-    End Date: <%= @graph_query[:end_date] %><br>
-    Product: <%= @graph_query[:product].gsub!("%20", " ") %><br>
-    <% @bugzilla_bugs.each do |key, value| %>
-        <%= key %>: <%= value %> bugs<br>
-    <% end %>
+    <%= (high_chart('graph1', @complete_graph)) -%>
 <% end %>
+
+
 
 
 
