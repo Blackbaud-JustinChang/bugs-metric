@@ -1,6 +1,4 @@
 $("#currentGraphsBorder").html("<%= escape_javascript(render @graphs) %>");
-$("#graph").html("<% if @graph_query %>\
-                Total time to graph: <%= @total_time %><br>\
+$("#graph").html("Total time to graph: <%= @total_time %><br>\
                 <%= escape_javascript(high_chart('bar_graph', @bar_graph)) -%>\
-                <br><%= escape_javascript(high_chart('line_graph', @line_graph)) %>\
-                <% end %>");
+                <br><%= escape_javascript(high_chart('line_graph', @line_graph)) %>");

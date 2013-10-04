@@ -52,9 +52,9 @@ class GraphsController < ApplicationController
   def show_graph params
     @graph_query = params if params.values.select { |x| x.nil? }.empty?
     @bugzilla_bugs = {}
-
+    begin_time = Time.now
     if @graph_query
-      begin_time = Time.now
+      cookies.delete :graph_info
       Graph.all.each do |graph|
         bugzilla_url = BUGZILLA_URL
         search = generate_search(graph.search)
@@ -73,10 +73,14 @@ class GraphsController < ApplicationController
         end
       end
       cookies[:graph_info] = @bugzilla_bugs_by_date.to_json
-      create_graph
-      @total_time = Time.now - begin_time
-
+    elsif cookies[:graph_info]
+      @bugzilla_bugs_by_date = JSON.parse(cookies[:graph_info])
+      @bugzilla_bugs_by_date.each do |key, value|
+        @bugzilla_bugs[key] = value.values.reduce(:+)
+      end
     end
+    create_graph
+    @total_time = Time.now - begin_time
   end
 
   def date_string start_date, end_date
@@ -90,9 +94,10 @@ class GraphsController < ApplicationController
   end
 
   def create_graph
+    dates = @bugzilla_bugs_by_date.first[1].keys.map{|x| Date.parse(x)}
     @bar_graph = LazyHighCharts::HighChart.new('bar_graph') do |f|
       f.series(:name => 'Total Bugs', :data => @bugzilla_bugs.values)
-      f.title({:text => "Total Bugs from #{@graph_query[:start_date]} to #{@graph_query[:end_date]}"})
+      f.title({:text => "Total Bugs from #{dates.first} to #{dates.last.next_month}"})
       f.legend({:align => 'right',
                 :x => -100,
                 :verticalAlign => 'top',
