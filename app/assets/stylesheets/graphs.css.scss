@@ -4,16 +4,23 @@
 @import "bootstrap";
 
 #background {
-    background: #DDECFF;
+  background: #E4F0FF;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 
 #Main
 {
+  background: #DDECFF;
   width: 65%;
   margin: auto;
   padding: 30px 10px 0px 10px;
-
+  border-radius: 8px;
+  border-style: solid;
+  border-width: 100%;
+  border-width: medium;
+  border-color: #D0D0D0;
 }
 
 #currentGraphs
@@ -39,7 +46,7 @@
   margin: 0;
   li {
     overflow: auto;
-    padding: 10px 0;
+    padding: 10px 10px 10px 10px;
     border-top: 1px solid #3F6AA6;
     &:last-child {
       border-bottom: 1px solid #3F6AA6;
@@ -57,5 +64,16 @@
 {
   padding: 30px 0px 0px 0px;
 }
+
+#bar_graph
+{
+  padding: 10px 20px 10px 10px;
+}
+
+#line_graph
+{
+  padding: 10px 20px 10px 10px;
+}
+
 
 
