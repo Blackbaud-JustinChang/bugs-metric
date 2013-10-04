@@ -1,1 +1,5 @@
-$("#currentGraphsBorder").html("<%= escape_javascript(render @graphs) %>");
+$("#currentGraphsBorder").html("<% if !@graphs.empty? %>\
+                                <%= escape_javascript(render @graphs) %>\
+                                <% else %>\
+                                No graphs have been added\
+                                <% end %>");
