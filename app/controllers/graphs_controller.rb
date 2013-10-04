@@ -90,7 +90,7 @@ class GraphsController < ApplicationController
   end
 
   def date_string start_date, end_date
-    "&type0-1-0=lessthan&query_format=advanced&value0-1-0=#{end_date}&field0-1-0=creation_ts&field0-0-0=creation_ts&type0-0-0=greaterthan&value0-0-0=#{start_date}"
+    "&type0-1-0=substring&field0-1-0=rep_platform&field0-0-0=creation_ts&query_format=advanced&value0-2-0=#{end_date}&value0-1-0=Production&field0-2-0=creation_ts&type0-0-0=greaterthan&value0-0-0=#{start_date}&type0-2-0=lessthan"
   end
 
   def fix_date_param date
