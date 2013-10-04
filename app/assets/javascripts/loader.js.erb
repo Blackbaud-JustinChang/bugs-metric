@@ -1,0 +1,8 @@
+$(document).ready(function(){
+    $('#graph_form').bind('ajax:beforeSend', function(){
+        $('#loader').show();
+    });
+    $('#graph_form').bind('ajax:complete', function(){
+        $('#loader').hide();
+    });
+});

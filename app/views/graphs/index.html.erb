@@ -21,13 +21,14 @@
 </div>
 <% products = [["Luminate Online", "Luminate%20Online"], ["Luminate CRM", "Luminate%20CRM"], ["BBCRM Integration", "BBCRM%20Integration"]] %>
 <div id="bugSearch">
-<%= form_tag("/", remote: true) do %>
+<%= form_tag("/", remote: true, :id=>"graph_form") do %>
     Product: <%= select_tag(:product, options_for_select(products)) %> <br>
     Start Date <%= date_select(:start_date, "start", :discard_day => true) %> <br>
     End Date <%= date_select(:end_date, "end", :discard_day => true) %><br>
-    <%= submit_tag("Run Graph") %>
+    <%= submit_tag("Run Graph", :id => "graph_submit") %>
 <% end %>
 </div>
+<div id='loader' style="display:none"><%= image_tag 'ajax-loader.gif'%></div>
 <div id="graph">
 <% if @graph_query %>
     Total time to graph: <%= @total_time %><br>
