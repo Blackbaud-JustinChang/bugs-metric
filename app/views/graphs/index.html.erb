@@ -21,7 +21,7 @@
 </div>
 <% products = [["Luminate Online", "Luminate%20Online"], ["Luminate CRM", "Luminate%20CRM"], ["BBCRM Integration", "BBCRM%20Integration"]] %>
 <div id="bugSearch">
-<%= form_tag "/" do %>
+<%= form_tag("/", remote: true) do %>
     Product: <%= select_tag(:product, options_for_select(products)) %> <br>
     Start Date <%= date_select(:start_date, "start", :discard_day => true) %> <br>
     End Date <%= date_select(:end_date, "end", :discard_day => true) %><br>
