@@ -12,7 +12,7 @@
 </div>
 <div id="createGraph">
   <h2>Enter New Graph information</h2>
-<%= form_for(@graph, remote:true) do |g| -%>
+<%= form_for(@graph, remote:true, id: "query_form") do |g| -%>
     Graph Name: <%= g.text_field :name %><br />
     Search: <%= g.text_field :search %><br />
     Search Summary <%= g.check_box :in_summary %><-- DOES NOT WORK<br />

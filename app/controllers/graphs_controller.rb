@@ -12,10 +12,11 @@ class GraphsController < ApplicationController
                     :end_date => fix_date_param(params[:end_date])}
     show_graph(graph_params)
 
+
     respond_to do |format|
       format.html
       format.js
-      format.json { render json: @graph}
+      format.json { render json: @graph }
     end
 
   end
@@ -37,7 +38,7 @@ class GraphsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to :back }
-      format.js { render :template => 'graphs/remove_graph.js.erb', :layout => false}
+      format.js { render :template => 'graphs/remove_graph.js.erb', :layout => false }
       format.json
     end
   end
@@ -70,19 +71,8 @@ class GraphsController < ApplicationController
           @bugzilla_bugs_by_date[graph.name][date.to_s] = bug_ids.select { |x| x['creation_time'].to_date >= date and x['creation_time'].to_date < date.next_month }.size
           date = date.next_month
         end
-
-        # Query url way
-        #@debug[graph.search] = {}
-        #date = @graph_query[:start_date].clone
-        #while date != @graph_query[:end_date]
-        #  date_param = date_string(date, date.next_month)
-        #  bug_ids = BugzillaHelper.bug_id_by_url(bugzilla_url + search + date_param + product)
-        #  @debug[graph.search][date.to_s] = bug_ids.size
-        #  date = date.next_month
-        #end
-
       end
-
+      cookies[:graph_info] = @bugzilla_bugs_by_date.to_json
       create_graph
       @total_time = Time.now - begin_time
 
@@ -118,38 +108,20 @@ class GraphsController < ApplicationController
       f.options[:yAxis][:title] = {:text => "Answers"}
     end
 
-
-
     @line_graph = LazyHighCharts::HighChart.new('graph') do |f|
       f.chart({type: 'line'})
       f.title({text: 'Total Bugs per Month'})
-      f.xAxis({
-                  categories: @bugzilla_bugs_by_date.first[1].keys
-              })
-      f.yAxis({
-                  title: {
-                      text: 'Bugs'
-                  }
-              })
-      f.tooltip({
-                    shared: true,
-                    crosshairs: true
-
-                })
-      f.plotOptions({
-                        line: {
-                            dataLabels: {
-                                enabled: true
-                            },
-                            enableMouseTracking: true
-                        }
-                    })
-
+      f.xAxis({categories: @bugzilla_bugs_by_date.first[1].keys})
+      f.yAxis({title: {
+          text: 'Bugs'
+      }})
+      f.tooltip({shared: true, crosshairs: true})
+      f.plotOptions({line: {
+          dataLabels: {
+              enabled: true
+          }, enableMouseTracking: true}})
       @bugzilla_bugs_by_date.each do |key, value|
-        f.series({
-                     name: key,
-                     data: value.values
-                 })
+        f.series({name: key, data: value.values})
       end
     end
   end
