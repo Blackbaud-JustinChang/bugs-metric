@@ -53,7 +53,7 @@ class GraphsController < ApplicationController
     @graph_query = params if params.values.select { |x| x.nil? }.empty?
     @bugzilla_bugs = {}
     begin_time = Time.now
-    if @graph_query
+    if @graph_query and @graph_query[:start_date] < @graph_query[:end_date]
       cookies.delete :graph_info
       Graph.all.each do |graph|
         bugzilla_url = BUGZILLA_URL
@@ -67,7 +67,7 @@ class GraphsController < ApplicationController
         @bugzilla_bugs_by_date[graph.name] = {}
         bug_ids = BugzillaHelper.bug_info(bugzilla_bug_ids)
         date = @graph_query[:start_date].clone
-        while date != @graph_query[:end_date] and !bug_ids.empty?
+        while date != @graph_query[:end_date]
           @bugzilla_bugs_by_date[graph.name][date.to_s] = bug_ids.select { |x| x['creation_time'].to_date >= date and x['creation_time'].to_date < date.next_month }.size
           date = date.next_month
         end
