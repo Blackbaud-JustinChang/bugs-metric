@@ -2,10 +2,10 @@
     <div id="createGraph">
       <h2>Enter New Graph information</h2>
     <%= form_for(@graph, remote:true, id: "query_form") do |g| -%>
-        Label for column: <%= g.text_field :name %><br />
-        Search criteria: <%= g.text_field :search %><br />
+        <div class='form-label'>Label for column: </div><%= g.text_field :name %><br/>
+        <div class='form-label'>Search criteria:  </div><%= g.text_field :search %><br/>
         <%= g.check_box :in_summary %> Expand Search to include Summary  <br />
-        <%= g.submit("Add graph") %>
+        <%= g.submit("Add to graph") %>
     <% end -%>
     </div>
     <% products = [["Luminate Online", "Luminate%20Online"], ["Luminate CRM", "Luminate%20CRM"], ["BBCRM Integration", "BBCRM%20Integration"]] %>
@@ -17,7 +17,9 @@
         <%= submit_tag("Run Graph", :id => "graph_submit") %>
     <% end %>
     </div>
+    <div id='loader' style="display:none"><%= image_tag 'ajax-loader.gif'%></div>
 </div>
+<hr/>
 
 <div id="currentGraphs" class="container-fluid">
   <h1>Current Graph</h1> <br/>
@@ -29,7 +31,6 @@
     <% end %>
   </ul>
 </div>
-<div id='loader' style="display:none"><%= image_tag 'ajax-loader.gif'%></div>
 <div id="graph">
   <% unless @bugzilla_bugs_by_date.empty? %>
     Total time to graph: <%= @total_time %><br>

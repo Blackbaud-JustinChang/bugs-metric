@@ -96,7 +96,7 @@ class GraphsController < ApplicationController
   def create_graph
     dates = @bugzilla_bugs_by_date.first[1].keys.map{|x| Date.parse(x)}
     @bar_graph = LazyHighCharts::HighChart.new('bar_graph') do |f|
-      f.series(:name => 'Total Bugs', :data => @bugzilla_bugs.values)
+      f.series(:name => 'Total Bugs', :data => @bugzilla_bugs.values, color: '#E6A225')
       f.title({:text => "Total Bugs from #{dates.first} to #{dates.last.next_month}"})
       f.legend({:align => 'right',
                 :x => -100,

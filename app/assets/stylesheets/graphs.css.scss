@@ -3,19 +3,9 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 #background {
-  background: #E4F0FF;
-  //padding-top: 20px;
-  //padding-bottom: 20px;
+  background: #eeedd5;
   margin: 0;
 }
-
-
-//#Main
-//{
-//  width: 65%;
-//  margin: auto;
-//  padding: 30px 10px 30px 10px;
-//}
 
 #graph_creation{
   background: #00b6a6;
@@ -23,14 +13,18 @@
   padding-top: 20px;
   padding-bottom: 20px;
 
-  padding-left: 20%;
-  padding-right: 20%;
+  padding-left: 15%;
+  padding-right: 15%;
+
+  #loader{
+    padding-top: 5px;
+  }
 }
 
 #currentGraphs
 {
-  padding-left: 20%;
-  padding-right: 20%;
+  padding-left: 15%;
+  padding-right: 15%;
   h1 {
     font-size: 20px;
     font-style: bold;
@@ -38,6 +32,13 @@
   }
 
 }
+
+.form-label{
+  width: 110px;
+  display: inline-block;
+}
+
+
 
 #currentGraphs li
 {
@@ -50,6 +51,8 @@
   margin: 0;
   padding: 0;
   li {
+    background: #ffffff;
+    color: #00A395;
     float: left;
     margin-right: 5px;
     border-radius: 5px;
@@ -68,17 +71,10 @@
 
 #graph
 {
-  padding: 30px 0px 0px 0px;
-}
-
-#bar_graph
-{
-  padding: 10px 20px 10px 10px;
-}
-
-#line_graph
-{
-  padding: 10px 20px 10px 10px;
+  padding-top: 3%;
+  padding-left: 15%;
+  padding-right: 15%;
+  padding-bottom: 5%;
 }
 
 select.date-select {
@@ -86,4 +82,9 @@ select.date-select {
   height: auto;
 }
 
-
+hr{
+  margin: 0px;
+  color: #ffffff;
+  background: #ffffff;
+  height: 10px;
+}
