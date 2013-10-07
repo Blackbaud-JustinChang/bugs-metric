@@ -79,7 +79,7 @@ class GraphsController < ApplicationController
         @bugzilla_bugs[key] = value.values.reduce(:+)
       end
     end
-    create_graph
+    create_graph unless @bugzilla_bugs_by_date.empty?
     @total_time = Time.now - begin_time
   end
 
