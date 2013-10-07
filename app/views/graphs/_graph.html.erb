@@ -1,6 +1,3 @@
 <li id="graph_<%= graph.id %>">
-  <%= graph.name %>
-  <div class="pull-right">
-    <%= graph.search %> <%= link_to "Remove", {:controller => "graphs", :id => graph.id, :action => "remove_graph", :remote => true} %>
-  </div>
+    <%= graph.name %> <%= link_to "x", {:controller => "graphs", :id => graph.id, :action => "remove_graph", :remote => true} %>
 </li>

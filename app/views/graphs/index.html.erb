@@ -1,4 +1,23 @@
-
+<div id="graph_creation" >
+    <div id="createGraph">
+      <h2>Enter New Graph information</h2>
+    <%= form_for(@graph, remote:true, id: "query_form") do |g| -%>
+        Label for column: <%= g.text_field :name %><br />
+        Search criteria: <%= g.text_field :search %><br />
+        <%= g.check_box :in_summary %> Expand Search to include Summary  <br />
+        <%= g.submit("Add graph") %>
+    <% end -%>
+    </div>
+    <% products = [["Luminate Online", "Luminate%20Online"], ["Luminate CRM", "Luminate%20CRM"], ["BBCRM Integration", "BBCRM%20Integration"]] %>
+    <div id="bugSearch">
+    <%= form_tag("/", remote: true, :id=>"graph_form") do %>
+        Product: <%= select_tag(:product, options_for_select(products)) %> <br>
+        Start Date <%= date_select(:start_date, "start", {:discard_day => true}, {:class => 'date-select'} ) %>
+        End Date <%= date_select(:end_date, "end", {:discard_day => true}, {:class => 'date-select'} ) %><br>
+        <%= submit_tag("Run Graph", :id => "graph_submit") %>
+    <% end %>
+    </div>
+</div>
 
 <div id="currentGraphs" class="container-fluid">
   <h1>Current Graph</h1> <br/>
@@ -10,24 +29,6 @@
     <% end %>
   </ul>
 </div>
-<div id="createGraph">
-  <h2>Enter New Graph information</h2>
-<%= form_for(@graph, remote:true, id: "query_form") do |g| -%>
-    Graph Name: <%= g.text_field :name %><br />
-    Search: <%= g.text_field :search %><br />
-    Search Summary <%= g.check_box :in_summary %><-- DOES NOT WORK<br />
-    <%= g.submit("Add graph") %>
-<% end -%>
-</div>
-<% products = [["Luminate Online", "Luminate%20Online"], ["Luminate CRM", "Luminate%20CRM"], ["BBCRM Integration", "BBCRM%20Integration"]] %>
-<div id="bugSearch">
-<%= form_tag("/", remote: true, :id=>"graph_form") do %>
-    Product: <%= select_tag(:product, options_for_select(products)) %> <br>
-    Start Date <%= date_select(:start_date, "start", :discard_day => true) %> <br>
-    End Date <%= date_select(:end_date, "end", :discard_day => true) %><br>
-    <%= submit_tag("Run Graph", :id => "graph_submit") %>
-<% end %>
-</div>
 <div id='loader' style="display:none"><%= image_tag 'ajax-loader.gif'%></div>
 <div id="graph">
   <% unless @bugzilla_bugs_by_date.empty? %>
@@ -35,7 +36,6 @@
     <%= (high_chart('bar_graph', @bar_graph)) -%><br>
     <%= (high_chart('line_graph', @line_graph)) -%>
   <% end %>
-
 </div>
 
 

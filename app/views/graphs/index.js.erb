@@ -1,4 +1,6 @@
 $("#currentGraphsBorder").html("<%= escape_javascript(render @graphs) %>");
-$("#graph").html("Total time to graph: <%= @total_time %><br>\
+$("#graph").html("<% unless @bugzilla_bugs_by_date.empty? %>\
+                Total time to graph: <%= @total_time %><br>\
                 <%= escape_javascript(high_chart('bar_graph', @bar_graph)) -%>\
-                <br><%= escape_javascript(high_chart('line_graph', @line_graph)) %>");
+                <br><%= escape_javascript(high_chart('line_graph', @line_graph)) %>\
+                <% end %>");
