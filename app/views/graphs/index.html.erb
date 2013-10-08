@@ -1,8 +1,8 @@
 <div id="graph_creation" >
     <div id="createGraph">
       <h2>Enter New Graph information</h2>
-    <%= form_for(@graph, remote:true, id: "query_form") do |g| -%>
-        <div class='form-label'>Label for column: </div><%= g.text_field :name %><br/>
+    <%= form_for(@graph, remote:true, :html=>{:class=>"form-inline"}) do |g| -%>
+        <div class='form-label'>Label for column: </div><%= g.text_field :name %><br/><br/>
         <div class='form-label'>Search criteria:  </div><%= g.text_field :search %><br/>
         <%= g.check_box :in_summary %> Expand Search to include Summary  <br />
         <%= g.submit("Add to graph") %>
@@ -10,10 +10,10 @@
     </div>
     <% products = [["Luminate Online", "Luminate%20Online"], ["Luminate CRM", "Luminate%20CRM"], ["BBCRM Integration", "BBCRM%20Integration"]] %>
     <div id="bugSearch">
-    <%= form_tag("/", remote: true, :id=>"graph_form") do %>
-        Product: <%= select_tag(:product, options_for_select(products)) %> <br>
+    <%= form_tag("/", remote: true, :id=>"graph_form", :class=>"form-inline") do %>
+        Product: <%= select_tag(:product, options_for_select(products)) %> <br><br>
         Start Date <%= date_select(:start_date, "start", {:discard_day => true}, {:class => 'date-select'} ) %>
-        End Date <%= date_select(:end_date, "end", {:discard_day => true}, {:class => 'date-select'} ) %><br>
+        End Date <%= date_select(:end_date, "end", {:discard_day => true}, {:class => 'date-select'} ) %><br><br>
         <%= submit_tag("Run Graph", :id => "graph_submit") %>
     <% end %>
     </div>

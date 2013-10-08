@@ -1,6 +1,7 @@
 // Place all the styles related to the Graphs controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import 'bootstrap';
 
 #background {
   background: #eeedd5;
@@ -36,6 +37,10 @@
 .form-label{
   width: 110px;
   display: inline-block;
+}
+
+#graph_in_summary{
+  margin-left: 110px;
 }
 
 
@@ -77,12 +82,12 @@
   padding-bottom: 5%;
 }
 
-select.date-select {
-  width:auto;
+select {
+  width: auto;
   height: auto;
 }
 
-hr{
+hr {
   margin: 0px;
   color: #ffffff;
   background: #ffffff;
