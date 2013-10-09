@@ -33,8 +33,7 @@ class GraphsController < ApplicationController
 
   def remove_graph
     graph = Graph.find(params[:id])
-    remove_graph_cookie(graph.name) if cookies[:graph_info]
-    remove_url_cookie(graph.name)   if cookies[:url_info]
+    remove_cookies(graph.name)
     graph.destroy
     @graphs = Graph.all
 
@@ -46,6 +45,11 @@ class GraphsController < ApplicationController
   end
 
   private
+
+  def remove_cookies(graph_name)
+    remove_graph_cookie(graph_name) if cookies[:graph_info]
+    remove_url_cookie(graph_name)   if cookies[:url_info]
+  end
 
   def remove_url_cookie(name)
     urls = eval(cookies[:url_info])
@@ -59,23 +63,33 @@ class GraphsController < ApplicationController
     cookies[:graph_info] = json_cookie.to_json
   end
 
+  def delete_cookies
+    cookies.delete :graph_info
+    cookies.delete :url_info
+  end
+
+  def add_cookies
+    cookies[:graph_info] = @bugzilla_bugs_by_date.to_json
+    cookies[:url_info] = @bugzilla_urls.to_s if !@bugzilla_urls.empty?
+  end
+
   def generate_search(search_params)
     "&short_desc=%28#{search_params.split(",").map(&:strip).join('%7C').gsub(' ', '%20')}%29&short_desc_type=regexp"
   end
 
-  def show_graph params=nil
+  def show_graph(params)
     @graph_query = params if params.values.select { |x| x.nil? }.empty?
     @bugzilla_bugs = {}
     @bugzilla_urls = {}
     begin_time = Time.now
+
     if @graph_query and @graph_query[:start_date] < @graph_query[:end_date]
-      cookies.delete :graph_info
+      delete_cookies
       Graph.all.each do |graph|
-        bugzilla_url = BUGZILLA_URL
         search = generate_search(graph.search)
         product = "&product=#{@graph_query[:product]}"
         date_param = date_string(@graph_query[:start_date], @graph_query[:end_date])
-        bugzilla_url = bugzilla_url + search + date_param + product
+        bugzilla_url = BUGZILLA_URL + search + date_param + product
         bugzilla_bug_ids = BugzillaHelper.bug_id_by_url(bugzilla_url)
         @bugzilla_bugs[graph.name] = bugzilla_bug_ids.size
         @bugzilla_urls[graph.name] = bugzilla_url
@@ -89,8 +103,7 @@ class GraphsController < ApplicationController
           date = date.next_month
         end
       end
-      cookies[:graph_info] = @bugzilla_bugs_by_date.to_json
-      cookies[:url_info] = @bugzilla_urls.to_s if !@bugzilla_urls.empty?
+      add_cookies
     elsif cookies[:graph_info] || cookies[:url_info]
       if cookies[:graph_info]
         @bugzilla_bugs_by_date = JSON.parse(cookies[:graph_info])
@@ -104,7 +117,7 @@ class GraphsController < ApplicationController
       end
     end
 
-    create_graph unless @bugzilla_bugs_by_date.empty?
+    create_graphs unless @bugzilla_bugs_by_date.empty?
     @total_time = Time.now - begin_time
   end
 
@@ -118,7 +131,7 @@ class GraphsController < ApplicationController
     Date.new(date_arr[0].to_i, date_arr[1].to_i)
   end
 
-  def create_graph
+  def create_graphs
     dates = @bugzilla_bugs_by_date.first[1].keys.map{|x| Date.parse(x)}
     @bar_graph = LazyHighCharts::HighChart.new('bar_graph') do |f|
       f.series(:name => 'Total Bugs', :data => @bugzilla_bugs.values, color: '#E6A225')
