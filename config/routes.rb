@@ -1,4 +1,6 @@
 BugsMetric::Application.routes.draw do
+  get "users/new"
+
   resources :graphs
 
   controller :graphs do
