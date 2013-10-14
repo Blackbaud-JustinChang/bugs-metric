@@ -8,6 +8,7 @@ gem 'rails'
 gem 'sqlite3'
 gem 'lazy_high_charts'
 gem 'bootstrap-sass'
+gem 'net-ldap'
 
 
 # Gems used only for assets and not required

@@ -4,6 +4,7 @@ class GraphsController < ApplicationController
   BUGZILLA_URL = "http://bugzilla.corp.convio.com/buglist.cgi?"
 
   def index
+    @username = session[:user]
     @graph = Graph.new
     @graphs = Graph.all
     @bugzilla_bugs_by_date = {}
@@ -22,7 +23,7 @@ class GraphsController < ApplicationController
   end
 
   def create
-    @graph = Graph.new(params[:graph])
+    @graph = Graph.new(params[:graph] + :username => @username)
     if @graph.save
       redirect_to root_path
     else

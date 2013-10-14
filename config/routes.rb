@@ -1,5 +1,5 @@
 BugsMetric::Application.routes.draw do
-  get "users/new"
+  get "users/home"
 
   resources :graphs
 
@@ -7,8 +7,12 @@ BugsMetric::Application.routes.draw do
     get "remove_graph" => :remove_graph
   end
 
+  controller :users do
+    post "create_user" => :create
+  end
+
   root to: 'graphs#index'
-  match '/home', to: 'static_pages#home'
+  match '/home', to: 'users#home'
 
 
   # The priority is based upon order of creation:
