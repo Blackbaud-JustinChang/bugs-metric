@@ -3,7 +3,7 @@
     <div class="container text-center">
       <%= form_tag("/create_user", :class=>"form-inline") do %>
           Username: <%= text_field_tag(:username)%>
-          Password: <%= text_field_tag(:password)%>
+          Password: <%= password_field_tag(:password)%>
           <%= submit_tag("Sign In", {:action => "create_user"}) %>
       <% end %>
     </div>
