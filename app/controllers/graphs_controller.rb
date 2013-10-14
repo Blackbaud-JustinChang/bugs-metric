@@ -4,9 +4,13 @@ class GraphsController < ApplicationController
   BUGZILLA_URL = "http://bugzilla.corp.convio.com/buglist.cgi?"
 
   def index
-    @username = session[:user]
+    if !logged_in?
+      redirect_to root_path
+    end
+
     @graph = Graph.new
-    @graphs = Graph.all
+    @graphs = Graph.find_all_by_username(session[:user])
+
     @bugzilla_bugs_by_date = {}
     graph_params = {:product => params[:product],
                     :start_date => fix_date_param(params[:start_date]),
@@ -23,12 +27,12 @@ class GraphsController < ApplicationController
   end
 
   def create
-    @graph = Graph.new(params[:graph] + :username => @username)
+    @graph = Graph.new(params[:graph].merge(:username => session[:user]))
     if @graph.save
-      redirect_to root_path
+      redirect_to metrics_path
     else
       #show error message
-      redirect_to root_path
+      redirect_to metrics_path
     end
   end
 

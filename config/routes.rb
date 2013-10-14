@@ -11,8 +11,10 @@ BugsMetric::Application.routes.draw do
     post "create_user" => :create
   end
 
-  root to: 'graphs#index'
+  root to: 'users#home'
   match '/home', to: 'users#home'
+
+  match '/metrics', to: 'graphs#index'
 
 
   # The priority is based upon order of creation:

@@ -12,6 +12,10 @@ class ApplicationController < ActionController::Base
     redirect_to_login
   end
 
+  def logged_in?
+    session[:user] != nil
+  end
+
   def redirect_to_login
     redirect_to '/home'
   end

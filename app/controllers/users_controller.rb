@@ -5,6 +5,7 @@ class UsersController < ApplicationController
 
     #sign_in
     create_user
+    redirect_to metrics_path
   end
 
 
@@ -27,6 +28,5 @@ class UsersController < ApplicationController
     end
 
     login_user @username
-    redirect_to root_path
   end
 end
