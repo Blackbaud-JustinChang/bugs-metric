@@ -6,6 +6,11 @@ BugsMetric::Application.routes.draw do
   controller :graphs do
     get "remove_graph" => :remove_graph
   end
+
+  root to: 'graphs#index'
+  match '/home', to: 'static_pages#home'
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -63,5 +68,5 @@ BugsMetric::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
 
-  root to: 'graphs#index'
+
 end
