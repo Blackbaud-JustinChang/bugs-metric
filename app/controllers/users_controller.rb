@@ -2,6 +2,12 @@ require_relative '../helpers/login_helper'
 
 class UsersController < ApplicationController
 
+  def home
+    if logged_in?
+      redirect_to metrics_path
+    end
+  end
+
   def create
     @username = params[:username]
     @password = params[:password]
@@ -19,7 +25,7 @@ class UsersController < ApplicationController
 
 
   def create_user
-    if LoginHelper.authenticate_user(@username, @password)
+    if authenticate_user(@username, @password)
       if User.find_by_username(@username).nil?
         @user = User.new(:username => @username)
         if @user.save
