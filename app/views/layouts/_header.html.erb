@@ -3,8 +3,8 @@
     <div class="container">
       <a id="logo" class="brand" href="/">BugMetrics</a>
       <ul class="nav pull-right">
-        <li><%= link_to 'Home', home_path %></li>
-        <li><a href="#">Link</a></li>
+        <li><%= link_to 'Home', login_path %></li>
+        <% if logged_in? %><li><%= link_to 'Logout', logout_path %></li><% end %>
         <li id="fat-menu" class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             Account <b class="caret"></b>

@@ -1,32 +1,38 @@
+require_relative '../helpers/login_helper'
+
 class UsersController < ApplicationController
+
   def create
     @username = params[:username]
     @password = params[:password]
 
-    #sign_in
-    create_user
-    redirect_to metrics_path
+    if create_user
+      redirect_to metrics_path
+    else
+      redirect_to login_path
+    end
   end
 
-
-  def sign_in
-
-    username = 'Blackbaud\\' + @username
-    ldap = Net::LDAP.new
-    ldap.host = '172.20.0.185'
-    ldap.port = 389
-    ldap.auth username, @password
-
-    #create_user
+  def logout
+    logout_user
   end
+
 
   def create_user
-    @user = User.find_by_username @username
-    if @user == nil
-      @user = User.new(:username => @username)
-      @user.save
+    if LoginHelper.authenticate_user(@username, @password)
+      if User.find_by_username(@username).nil?
+        @user = User.new(:username => @username)
+        if @user.save
+          login_user @username
+        else
+          false
+        end
+      else
+        login_user @username
+      end
+    else
+      false
     end
-
-    login_user @username
   end
+
 end

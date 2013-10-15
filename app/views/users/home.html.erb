@@ -1,11 +1,10 @@
 <div class="main-container">
-  <div class="center">
-    <div class="container text-center">
-      <%= form_tag("/create_user", :class=>"form-inline") do %>
-          Username: <%= text_field_tag(:username)%>
-          Password: <%= password_field_tag(:password)%>
-          <%= submit_tag("Sign In", {:action => "create_user"}) %>
-      <% end %>
-    </div>
+  <div class="center text-center">
+    <h2>Welcome</h2>
+    <%= form_tag("/create_user", :class=>"form-inline") do %>
+        Username: <%= text_field_tag(:username)%>
+        Password: <%= password_field_tag(:password)%>
+        <%= submit_tag("Sign In") %>
+    <% end %>
   </div>
 </div>

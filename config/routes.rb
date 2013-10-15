@@ -12,7 +12,8 @@ BugsMetric::Application.routes.draw do
   end
 
   root to: 'users#home'
-  match '/home', to: 'users#home'
+  match '/login', to: 'users#home'
+  match '/logout', to: 'users#logout'
 
   match '/metrics', to: 'graphs#index'
 
