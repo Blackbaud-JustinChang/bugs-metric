@@ -5,7 +5,7 @@ class GraphsController < ApplicationController
 
   def index
     if !logged_in?
-      #redirect_to root_path
+      redirect_to root_path
     end
 
     @graph = Graph.new
@@ -18,11 +18,11 @@ class GraphsController < ApplicationController
     show_graph(graph_params)
 
 
-    respond_to do |format|
-      format.html
-      format.js
-      format.json { render json: @graph }
-    end
+    #respond_to do |format|
+    #  format.html
+    #  format.js
+    #  format.json { render json: @graph }
+    #end
 
   end
 

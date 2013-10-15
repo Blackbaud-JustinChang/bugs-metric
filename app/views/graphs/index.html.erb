@@ -10,7 +10,7 @@
     </div>
     <% products = [["Luminate Online", "Luminate%20Online"], ["Luminate CRM", "Luminate%20CRM"], ["BBCRM Integration", "BBCRM%20Integration"]] %>
     <div id="bugSearch">
-    <%= form_tag("/", remote: true, :id=>"graph_form", :class=>"form-inline") do %>
+    <%= form_tag("/metrics", remote: true, :id=>"graph_form", :class=>"form-inline") do %>
         Product: <%= select_tag(:product, options_for_select(products)) %> <br><br>
         Start Date <%= date_select(:start_date, "start", {:discard_day => true}, {:class => 'date-select'} ) %>
         End Date <%= date_select(:end_date, "end", {:discard_day => true}, {:class => 'date-select'} ) %><br><br>
