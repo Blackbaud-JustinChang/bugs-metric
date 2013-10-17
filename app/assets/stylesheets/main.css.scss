@@ -14,11 +14,28 @@
 }
 
 .main-container {
+  margin-top: 20px;
   background: #00b6a6;
   color: #ffffff;
-  padding-top: 20px;
+  padding-top: 50px;
   padding-bottom: 20px;
 
   padding-left: 15%;
   padding-right: 15%;
 }
+
+.error
+{
+  padding-bottom: 10px;
+  font-weight: bold;
+  font-size: 15px;
+  color: #CC0000;
+}
+
+.login-message
+{
+  padding-bottom: 7px;
+  font-weight: bold;
+  font-size: 20px;
+}
+

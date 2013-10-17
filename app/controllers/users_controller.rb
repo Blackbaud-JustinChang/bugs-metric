@@ -12,10 +12,14 @@ class UsersController < ApplicationController
     @username = params[:username]
     @password = params[:password]
 
-    if create_user
-      redirect_to metrics_path
+    if !@username || !@password
+      redirect_to(login_path, :flash => {:error => "Please provide username and password!"})
     else
-      redirect_to login_path
+      if create_user
+        redirect_to metrics_path
+      else
+        redirect_to(login_path, :flash => {:error => "Invalid username or password!"})
+      end
     end
   end
 

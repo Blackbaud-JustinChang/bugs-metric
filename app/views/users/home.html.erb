@@ -1,6 +1,9 @@
 <div class="main-container">
   <div class="center text-center">
-    <h2>Welcome</h2>
+    <p class="login-message">Please login using your LDAP information.</p>
+    <% flash.each do |name, msg| %>
+        <%= content_tag :div, msg, class: name %>
+    <% end %>
     <%= form_tag("/create_user", :class=>"form-inline") do %>
         Username: <%= text_field_tag(:username)%>
         Password: <%= password_field_tag(:password)%>
