@@ -4,7 +4,6 @@
     <%= form_for(@graph, remote:true, :html=>{:class=>"form-inline"}) do |g| -%>
         <div class='form-label'>Label for column: </div><%= g.text_field :name %><br/><br/>
         <div class='form-label'>Search criteria:  </div><%= g.text_field :search %><br/>
-        <%= g.check_box :in_summary %> Expand Search to include Summary  <br />
         <%= g.submit("Add to graph") %>
     <% end -%>
     </div>
