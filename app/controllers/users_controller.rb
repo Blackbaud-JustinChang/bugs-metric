@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     @username = params[:username]
     @password = params[:password]
 
-    if !@username || !@password
+    if @username == "" || @password == ""
       redirect_to(login_path, :flash => {:error => "Please provide username and password!"})
     else
       if create_user
