@@ -40,7 +40,7 @@ class GraphsController < ApplicationController
     graph = Graph.find(params[:id])
     remove_cookies(graph.name)
     graph.destroy
-    @graphs = Graph.all
+    @graphs = Graph.find_all_by_username(session[:user])
 
     respond_to do |format|
       format.html { redirect_to :back }
@@ -88,9 +88,9 @@ class GraphsController < ApplicationController
     @bugzilla_urls = {}
     begin_time = Time.now
 
-    if @graph_query and @graph_query[:start_date] < @graph_query[:end_date]
+    if @graph_query and @graph_query[:start_date] < @graph_query[:end_date] && @graphs
       delete_cookies
-      Graph.all.each do |graph|
+      @graphs.each do |graph|
         search = generate_search(graph.search)
         product = "&product=#{@graph_query[:product]}"
         date_param = date_string(@graph_query[:start_date], @graph_query[:end_date])
